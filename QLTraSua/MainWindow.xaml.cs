@@ -50,7 +50,7 @@ namespace QLTraSua
         Modify modify = new Modify();
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            TrangChu trangChu = new TrangChu();
+            QLTraSua.Forms.TrangChu.TrangChu trangChu = new QLTraSua.Forms.TrangChu.TrangChu();
             string tenDangNhap = Text_TenDangNhap.Text;
             string matKhau = text_MatKhau.Password;
             if (tenDangNhap.Trim() == "")

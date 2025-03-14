@@ -55,7 +55,7 @@ namespace QLTraSua.Forms.TrangChu
         {
             ResetButtonColors();
             btnDatMon.Background = new SolidColorBrush(Color.FromRgb(206, 152, 89)); // Đổi màu khi bấm
-            Mo(chinhchu, activeform, new DatMon());
+            Mo(chinhchu, activeform, new QLTraSua.Forms.DatMon.DatMon());
         }
 
 
@@ -63,26 +63,26 @@ namespace QLTraSua.Forms.TrangChu
         {
             ResetButtonColors();
             btnNhanVien.Background = new SolidColorBrush(Color.FromRgb(206, 152, 89)); // Đổi màu khi bấm
-            Mo(chinhchu, activeform, new NhanVien());
+            //Mo(chinhchu, activeform, new NhanVien());
         }
 
         private void Button_Click_DoanhThu(object sender, RoutedEventArgs e)
         {
             ResetButtonColors();
             btnDoanhThu.Background = new SolidColorBrush(Color.FromRgb(206, 152, 89)); // Đổi màu khi bấm
-            Mo(chinhchu, activeform, new DoanhThu());
+            //Mo(chinhchu, activeform, new DoanhThu());
         }
         private void Button_Seting(object sender, RoutedEventArgs e)
         {
-            Seting seting = new Seting();
-            seting.Show();
+            //Seting seting = new Seting();
+            //seting.Show();
         }
 
         private void Button_Click_CapNhatMon(object sender, RoutedEventArgs e)
         {
             ResetButtonColors();
             btnCapNhatMon.Background = new SolidColorBrush(Color.FromRgb(206, 152, 89)); // Đổi màu khi bấm
-            Mo(chinhchu, activeform, new CapNhapMon());
+            //Mo(chinhchu, activeform, new CapNhapMon());
         }
     }
 }

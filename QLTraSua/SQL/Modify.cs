@@ -25,7 +25,7 @@ namespace QLTraSua.SQL
                 dataReader = sqlCommand.ExecuteReader();
                 while (dataReader.Read())
                 {
-                    taiKhoans.Add(new TaiKhoan(dataReader.GetString(0), dataReader.GetString(1), dataReader.GetString(2), dataReader.GetString(3), dataReader.GetString(4)));
+                    taiKhoans.Add(new TaiKhoan(dataReader.GetString(0), dataReader.GetString(1)));
                 }
                 sqlConnection.Close();
             }

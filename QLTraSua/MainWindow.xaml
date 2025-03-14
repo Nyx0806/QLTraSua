@@ -38,7 +38,7 @@
         </StackPanel>
 
         <Image HorizontalAlignment="Left" Height="66" Margin="100,24,0,0" VerticalAlignment="Top" Width="255" RenderTransformOrigin="0.5,0.5"
-               Source="C:\Users\NITRO 5\Source\Repos\Tra_Sua\Images\Screenshot 2025-03-03 185044.png">
+               Source="/Images/trangchu.png">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>

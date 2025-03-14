@@ -26,10 +26,10 @@ namespace QLTraSua.Forms.DatMon
         public ObservableCollection<SanPham> DanhSachMon { get; set; }
 
         // Lưu danh sách món của từng bàn (Key: int, Value: Danh sách món)
-        private Dictionary<int, ObservableCollection<SanPham>> banHoaDon = new Dictionary<int, ObservableCollection<SanPham>>();
+        private Dictionary<string, ObservableCollection<SanPham>> banHoaDon = new Dictionary<string, ObservableCollection<SanPham>>();
 
         // Lưu trạng thái bàn (Key: int, Value: bool)
-        private Dictionary<int, bool> trangThaiBan = new Dictionary<int, bool>();
+        private Dictionary<string, bool> trangThaiBan = new Dictionary<string, bool>();
 
         private Button banDangChon = null; // Lưu bàn đang chọn
 
@@ -41,9 +41,9 @@ namespace QLTraSua.Forms.DatMon
             KhoiTaoBanAn();
         }
 
-        private void CapNhatTrangThaiBan(int soBan, string trangThai)
+        private void CapNhatTrangThaiBan(string soBan, string trangThai)
         {
-            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""C:\Users\NITRO 5\source\repos\Tra_Sua\Sql\Tra_Sua.mdf"";Integrated Security=True;User ID=sa;Password=***********;Integrated Security=True";
+            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""F:\C_C#_C++\Visual Studio Code\QLTraSua\QLTraSua\Database\Trasua.mdf"";Integrated Security=True";
             string query = "UPDATE Ban SET trangthai = @TrangThai WHERE banSo = @BanSo";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -52,15 +52,16 @@ namespace QLTraSua.Forms.DatMon
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@TrangThai", trangThai);
-                    cmd.Parameters.AddWithValue("@BanSo", soBan);
+                    cmd.Parameters.AddWithValue("@BanSo", soBan); // Đảm bảo soBan là string
                     cmd.ExecuteNonQuery();
                 }
             }
         }
 
+
         private void KhoiTaoBanAn()
         {
-            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""C:\Users\NITRO 5\source\repos\Tra_Sua\Sql\Tra_Sua.mdf"";Integrated Security=True;User ID=sa;Password=***********;Integrated Security=True";
+            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""F:\C_C#_C++\Visual Studio Code\QLTraSua\QLTraSua\Database\Trasua.mdf"";Integrated Security=True";
             string query = "SELECT banSo, trangthai FROM Ban";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -71,7 +72,7 @@ namespace QLTraSua.Forms.DatMon
                 {
                     while (reader.Read())
                     {
-                        int soBan = reader.GetInt32(0);
+                        string soBan = reader.GetString(0); // Đọc số bàn dạng NVARCHAR
                         string trangThai = reader.GetString(1);
 
                         Button btnBan = new Button
@@ -101,12 +102,13 @@ namespace QLTraSua.Forms.DatMon
             }
         }
 
+
         private void ChonBan(Button btnBan)
         {
-            int soBan = int.Parse(btnBan.Content.ToString().Replace("Bàn ", ""));
+            string soBan = btnBan.Content.ToString().Replace("Bàn ", ""); // Giữ nguyên dạng chuỗi
 
             // Nếu bàn chưa được chọn trước đó, cập nhật trạng thái
-            if (!trangThaiBan[soBan])
+            if (!trangThaiBan.ContainsKey(soBan) || !trangThaiBan[soBan])
             {
                 btnBan.Background = Brushes.LightGreen; // Đổi màu bàn sang xanh lá
                 trangThaiBan[soBan] = true; // Đánh dấu bàn đã chọn
@@ -125,26 +127,15 @@ namespace QLTraSua.Forms.DatMon
 
             dataGridMon.ItemsSource = DanhSachMon;
             dataGridMon.Items.Refresh();
-
             CapNhatTongTien();
-
-            // Mở form menu
-            MoFormMenu();
         }
 
-        public void QuayLaiManHinhChonBan()
-        {
-            // 🔹 KHÔNG XÓA `banHoaDon`, chỉ reset hiển thị của `DataGrid`
-            dataGridMon.ItemsSource = null;
-            dataGridMon.Items.Refresh();
-
-        }
 
         public void ThemMon(SanPham mon)
         {
             if (mon != null && banDangChon != null)
             {
-                int soBan = int.Parse(banDangChon.Content.ToString().Replace("Bàn ", ""));
+                string soBan = banDangChon.Content.ToString().Replace("Bàn ", "");
 
                 var danhSachCuaBan = banHoaDon[soBan];
 
@@ -174,7 +165,7 @@ namespace QLTraSua.Forms.DatMon
         {
             if (banDangChon != null)
             {
-                int soBan = int.Parse(banDangChon.Content.ToString().Replace("Bàn ", ""));
+                string soBan = banDangChon.Content.ToString().Replace("Bàn ", ""); // Giữ nguyên chuỗi
 
                 // Cập nhật trạng thái bàn về "Trống"
                 CapNhatTrangThaiBan(soBan, "Trống");
@@ -193,11 +184,9 @@ namespace QLTraSua.Forms.DatMon
                 dataGridMon.Items.Refresh();
 
                 MessageBox.Show($"In hóa đơn cho bàn {soBan} thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                // Quay lại màn hình chọn bàn
-                QuayLaiManHinhChonBan();
             }
         }
+
         private void Mo(Grid panel1, UserControl activeform, UserControl childform)
         {
             if (activeform != null)
@@ -208,10 +197,6 @@ namespace QLTraSua.Forms.DatMon
             panel1.Children.Add(childform); // Thêm vào Grid
         }
         UserControl activeform = null;
-        private void MoFormMenu()
-        {
-            Mo(gridMenu, activeform, new MenuUS(this));
-        }
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             if (sender == txtTenKhach) lblTenKhach.Visibility = Visibility.Collapsed;
@@ -224,6 +209,20 @@ namespace QLTraSua.Forms.DatMon
 
             if (sender == txtSDT && string.IsNullOrWhiteSpace(txtSDT.Text))
                 lblSDT.Visibility = Visibility.Visible;
+        }
+        private void Menu_Trasua_Click(object sender, RoutedEventArgs e)
+        {
+           Mo(gridMenu, activeform, new QLTraSua.Forms.DatMon.TraSua());
+        }
+
+        private void Menu_AnVat_Click(object sender, RoutedEventArgs e)
+        {
+            Mo(gridMenu, activeform, new QLTraSua.Forms.DatMon.DoAnVat());
+        }
+
+        private void QuayLai_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -36,7 +36,7 @@
         </Button>
         <Button Content="Đồ ăn vặt" HorizontalAlignment="Left" Margin="175,5,0,0"
             VerticalAlignment="Top" Height="31" Width="110" Background="#F2C193"
-            BorderBrush="#83705E" BorderThickness="4" FontSize="17" FontWeight="Bold">
+            BorderBrush="#83705E" BorderThickness="4" FontSize="17" FontWeight="Bold" Click="Menu_AnVat_Click">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Background="{TemplateBinding Background}" 
@@ -52,7 +52,7 @@
         </Button>
         <Button Content="Quay lại" HorizontalAlignment="Left" Margin="330,5,0,0"
          VerticalAlignment="Top" Height="31" Width="110" Background="#F2C193"
-         BorderBrush="#83705E" BorderThickness="4" FontSize="17" FontWeight="Bold" Click="Button_Click">
+         BorderBrush="#83705E" BorderThickness="4" FontSize="17" FontWeight="Bold" Click="QuayLai_Click">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Border Background="{TemplateBinding Background}" 
@@ -68,7 +68,11 @@
         </Button>
         <!-- Khu vực hóa đơn -->
         <Grid Grid.Column="1" Margin="5">
-            <Border  Margin="10" Background="#E8C097" CornerRadius="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Border  Margin="10,10,10,10" Background="#E8C097" CornerRadius="10" Grid.Row="1">
                 <Grid Margin="10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="80" />
@@ -90,12 +94,21 @@
                                 VerticalAlignment="Center" Margin="5,0,0,0"
                                 IsHitTestVisible="False" />
                         </Grid>
-                        <TextBlock Text="Thông Tin Hóa Đơn" FontWeight="Bold" Margin="5 10 0 5" />
+                        <!--Danh sách bàn đang chọn-->
+                        <Grid>
+                            <StackPanel>
+                                <TextBlock Text="Thông Tin Hóa Đơn" FontWeight="Bold" Margin="5 10 0 5" />
+                                <StackPanel>
+                                    
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                        
                     </StackPanel>
 
                     <Grid Grid.Row="1">
                         <DataGrid  x:Name="dataGridMon" AutoGenerateColumns="False" HeadersVisibility="Column"
-       Background="White">
+                             Background="White">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Tên Sản Phẩm" Binding="{Binding TenSanPham}" Width="*" />
                                 <DataGridTextColumn Header="Đơn Giá" Binding="{Binding Gia}" Width="80" />
