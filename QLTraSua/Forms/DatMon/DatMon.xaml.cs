@@ -23,6 +23,8 @@ namespace QLTraSua.Forms.DatMon
     /// </summary>
     public partial class DatMon : UserControl
     {
+        private List<string> bansDaChon = new List<string>(); // Lưu bàn của lượt khách hiện tại
+
         public ObservableCollection<SanPham> DanhSachMon { get; set; }
 
         // Lưu danh sách món của từng bàn (Key: int, Value: Danh sách món)
@@ -105,20 +107,24 @@ namespace QLTraSua.Forms.DatMon
 
         private void ChonBan(Button btnBan)
         {
-            string soBan = btnBan.Content.ToString().Replace("Bàn ", ""); // Giữ nguyên dạng chuỗi
+            string soBan = btnBan.Content.ToString().Replace("Bàn ", ""); // Giữ nguyên chuỗi
 
-            // Nếu bàn chưa được chọn trước đó, cập nhật trạng thái
             if (!trangThaiBan.ContainsKey(soBan) || !trangThaiBan[soBan])
             {
                 btnBan.Background = Brushes.LightGreen; // Đổi màu bàn sang xanh lá
-                trangThaiBan[soBan] = true; // Đánh dấu bàn đã chọn
-                CapNhatTrangThaiBan(soBan, "Đang sử dụng"); // Cập nhật trạng thái CSDL
+                trangThaiBan[soBan] = true;
+                bansDaChon.Add(soBan); // Lưu bàn vào danh sách lượt khách hiện tại
+                CapNhatTrangThaiBan(soBan, "Đang sử dụng");
+            }
+            else
+            {
+                btnBan.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D49A6A"));
+                trangThaiBan[soBan] = false;
+                bansDaChon.Remove(soBan); // Xóa bàn khỏi danh sách lượt khách hiện tại
+                CapNhatTrangThaiBan(soBan, "Trống");
             }
 
-            // Cập nhật bàn đang chọn
-            banDangChon = btnBan;
-
-            // Đảm bảo lấy danh sách món cũ của bàn
+            // Đảm bảo lấy danh sách món của bàn
             if (!banHoaDon.ContainsKey(soBan))
             {
                 banHoaDon[soBan] = new ObservableCollection<SanPham>();
@@ -129,6 +135,8 @@ namespace QLTraSua.Forms.DatMon
             dataGridMon.Items.Refresh();
             CapNhatTongTien();
         }
+
+        
 
 
         public void ThemMon(SanPham mon)
@@ -163,29 +171,51 @@ namespace QLTraSua.Forms.DatMon
 
         private void InDon_Click(object sender, RoutedEventArgs e)
         {
-            if (banDangChon != null)
+            if (bansDaChon.Count > 0) // Kiểm tra xem có bàn nào trong lượt này không
             {
-                string soBan = banDangChon.Content.ToString().Replace("Bàn ", ""); // Giữ nguyên chuỗi
+                foreach (var soBan in bansDaChon.ToList()) // Duyệt danh sách bàn trong lượt khách hiện tại
+                {
+                    // Cập nhật trạng thái bàn về "Trống" trong database
+                    CapNhatTrangThaiBan(soBan, "Trống");
 
-                // Cập nhật trạng thái bàn về "Trống"
-                CapNhatTrangThaiBan(soBan, "Trống");
+                    // Tìm button bàn trong giao diện và đổi màu về màu cũ
+                    foreach (Button btn in gridBanAn.Children)
+                    {
+                        if (btn.Content.ToString() == $"Bàn {soBan}")
+                        {
+                            btn.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D49A6A")); // Màu cũ
+                            break;
+                        }
+                    }
 
-                // Đổi màu bàn về màu cũ
-                banDangChon.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D49A6A"));
+                    // Đặt trạng thái bàn về chưa chọn
+                    trangThaiBan[soBan] = false;
 
-                // Đặt trạng thái bàn về chưa chọn
-                trangThaiBan[soBan] = false;
+                    // Xóa danh sách món của bàn
+                    if (banHoaDon.ContainsKey(soBan))
+                    {
+                        banHoaDon[soBan].Clear();
+                    }
+                }
 
-                // Xóa danh sách món của bàn in đơn
-                banHoaDon[soBan].Clear();
+                // Reset danh sách bàn của lượt khách hiện tại
+                bansDaChon.Clear();
 
-                // Reset hiển thị của `DataGrid`
+                // Reset danh sách món ăn hiển thị
+                DanhSachMon.Clear();
                 dataGridMon.ItemsSource = null;
                 dataGridMon.Items.Refresh();
+                lblTongTien.Text = "Tổng tiền: 0 VNĐ"; // Reset tổng tiền
 
-                MessageBox.Show($"In hóa đơn cho bàn {soBan} thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("In hóa đơn thành công! Chỉ những bàn trong lượt khách này được đặt về 'Trống'.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn bàn trước khi in đơn!", "Cảnh báo", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
+
+
 
         private void Mo(Grid panel1, UserControl activeform, UserControl childform)
         {

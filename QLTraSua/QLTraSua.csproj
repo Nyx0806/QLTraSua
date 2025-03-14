@@ -159,6 +159,14 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>Trasua.mdf</DependentUpon>
     </Content>
+    <Resource Include="Images\TS008.png" />
+    <Resource Include="Images\TS007.png" />
+    <Resource Include="Images\TS006.png" />
+    <Resource Include="Images\TS005.png" />
+    <Resource Include="Images\TS004.png" />
+    <Resource Include="Images\TS003.png" />
+    <Resource Include="Images\TS002.png" />
+    <Resource Include="Images\TS001.png" />
     <Resource Include="Images\trangchu.png" />
     <Resource Include="Images\default.jpg" />
   </ItemGroup>
