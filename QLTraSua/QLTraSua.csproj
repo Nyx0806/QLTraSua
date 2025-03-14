@@ -70,6 +70,29 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Forms\DatMon\DatMon.xaml.cs">
+      <DependentUpon>DatMon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\TrangChu\TrangChu.xaml.cs">
+      <DependentUpon>TrangChu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Ban.cs" />
+    <Compile Include="Models\ChiTietHoaDon.cs" />
+    <Compile Include="Models\HoaDon.cs" />
+    <Compile Include="Models\KhachHang.cs" />
+    <Compile Include="Models\NhanVien.cs" />
+    <Compile Include="Models\SanPham.cs" />
+    <Compile Include="Models\TaiKhoan.cs" />
+    <Compile Include="SQL\Connection.cs" />
+    <Compile Include="SQL\Modify.cs" />
+    <Page Include="Forms\DatMon\DatMon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\TrangChu\TrangChu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -110,9 +133,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Forms\" />
-    <Folder Include="Models\" />
-    <Folder Include="SQL\" />
+    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Database\Trasua.mdf">

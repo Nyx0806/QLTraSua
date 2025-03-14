@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 F:\C_C#_C++\Visual Studio Code\QLTraSua\QLTraSua\App.xaml
-1219584333
+3-620352001
 21265894922
-6-502434485
+17821410629
 13-1310406943
-MainWindow.xaml;
+Forms\DatMon\DatMon.xaml;Forms\TrangChu\TrangChu.xaml;MainWindow.xaml;
 
-False
+True
 

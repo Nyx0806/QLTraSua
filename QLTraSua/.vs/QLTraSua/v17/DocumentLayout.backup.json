@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "F:\\C_C#_C\u002B\u002B\\Visual Studio Code\\QLTraSua\\QLTraSua\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{00A6F4FC-A0EF-4C17-9ABD-77C12C609A0F}|QLTraSua.csproj|f:\\c_c#_c\u002B\u002B\\visual studio code\\qltrasua\\qltrasua\\forms\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{00A6F4FC-A0EF-4C17-9ABD-77C12C609A0F}|QLTraSua.csproj|solutionrelative:forms\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{00A6F4FC-A0EF-4C17-9ABD-77C12C609A0F}|QLTraSua.csproj|f:\\c_c#_c\u002B\u002B\\visual studio code\\qltrasua\\qltrasua\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{00A6F4FC-A0EF-4C17-9ABD-77C12C609A0F}|QLTraSua.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{00A6F4FC-A0EF-4C17-9ABD-77C12C609A0F}|QLTraSua.csproj|f:\\c_c#_c\u002B\u002B\\visual studio code\\qltrasua\\qltrasua\\forms\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{00A6F4FC-A0EF-4C17-9ABD-77C12C609A0F}|QLTraSua.csproj|solutionrelative:forms\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{00A6F4FC-A0EF-4C17-9ABD-77C12C609A0F}|QLTraSua.csproj|f:\\c_c#_c\u002B\u002B\\visual studio code\\qltrasua\\qltrasua\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{00A6F4FC-A0EF-4C17-9ABD-77C12C609A0F}|QLTraSua.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{00A6F4FC-A0EF-4C17-9ABD-77C12C609A0F}|QLTraSua.csproj|f:\\c_c#_c\u002B\u002B\\visual studio code\\qltrasua\\qltrasua\\sql\\modify.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{00A6F4FC-A0EF-4C17-9ABD-77C12C609A0F}|QLTraSua.csproj|solutionrelative:sql\\modify.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -31,26 +35,39 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "MainWindow.xaml",
-              "DocumentMoniker": "F:\\C_C#_C\u002B\u002B\\Visual Studio Code\\QLTraSua\\QLTraSua\\Forms\\MainWindow.xaml",
-              "RelativeDocumentMoniker": "Forms\\MainWindow.xaml",
-              "ToolTip": "F:\\C_C#_C\u002B\u002B\\Visual Studio Code\\QLTraSua\\QLTraSua\\Forms\\MainWindow.xaml",
-              "RelativeToolTip": "Forms\\MainWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-03-13T09:20:14.273Z",
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "F:\\C_C#_C\u002B\u002B\\Visual Studio Code\\QLTraSua\\QLTraSua\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "MainWindow.xaml.cs",
+              "ToolTip": "F:\\C_C#_C\u002B\u002B\\Visual Studio Code\\QLTraSua\\QLTraSua\\MainWindow.xaml.cs",
+              "RelativeToolTip": "MainWindow.xaml.cs",
+              "ViewState": "AgIAACkAAAAAAAAAAAAwwDsAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-14T10:20:05.305Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "F:\\C_C#_C\u002B\u002B\\Visual Studio Code\\QLTraSua\\QLTraSua\\Forms\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "Forms\\MainWindow.xaml.cs",
-              "ToolTip": "F:\\C_C#_C\u002B\u002B\\Visual Studio Code\\QLTraSua\\QLTraSua\\Forms\\MainWindow.xaml.cs",
-              "RelativeToolTip": "Forms\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAFAAAAAAAAAA==",
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "F:\\C_C#_C\u002B\u002B\\Visual Studio Code\\QLTraSua\\QLTraSua\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "MainWindow.xaml",
+              "ToolTip": "F:\\C_C#_C\u002B\u002B\\Visual Studio Code\\QLTraSua\\QLTraSua\\MainWindow.xaml*",
+              "RelativeToolTip": "MainWindow.xaml*",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-03-14T10:15:31.483Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Modify.cs",
+              "DocumentMoniker": "F:\\C_C#_C\u002B\u002B\\Visual Studio Code\\QLTraSua\\QLTraSua\\SQL\\Modify.cs",
+              "RelativeDocumentMoniker": "SQL\\Modify.cs",
+              "ToolTip": "F:\\C_C#_C\u002B\u002B\\Visual Studio Code\\QLTraSua\\QLTraSua\\SQL\\Modify.cs",
+              "RelativeToolTip": "SQL\\Modify.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-13T09:20:13.224Z",
+              "WhenOpened": "2025-03-14T09:07:17.837Z",
               "EditorCaption": ""
             }
           ]
