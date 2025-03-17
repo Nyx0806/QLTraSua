@@ -13,13 +13,13 @@ namespace QLTraSua.Models
         private string maSanPham;
         private int soLuong;
         private DateTime ngayGhiDon;
-        private float donGia;
+        private decimal donGia;
 
         public ChiTietHoaDon()
         {
         }
 
-        public ChiTietHoaDon(string cTHoaDon, string maCT, string maSanPham, int soLuong, DateTime ngayGhiDon, float donGia)
+        public ChiTietHoaDon(string cTHoaDon, string maCT, string maSanPham, int soLuong, DateTime ngayGhiDon, decimal donGia)
         {
             this.cTHoaDon = cTHoaDon;
             this.maCT = maCT;
@@ -34,6 +34,6 @@ namespace QLTraSua.Models
         public string MaSanPham { get => maSanPham; set => maSanPham = value; }
         public int SoLuong { get => soLuong; set => soLuong = value; }
         public DateTime NgayGhiDon { get => ngayGhiDon; set => ngayGhiDon = value; }
-        public float DonGia { get => donGia; set => donGia = value; }
+        public decimal DonGia { get => donGia; set => donGia = value; }
     }
 }

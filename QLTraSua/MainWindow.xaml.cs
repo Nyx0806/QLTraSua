@@ -12,7 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.IO;
 
 namespace QLTraSua
 {
@@ -24,6 +24,16 @@ namespace QLTraSua
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = this;
+        }
+        public string LogoPath
+        {
+            get
+            {
+                string imageFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images");
+                string imagePath = Path.Combine(imageFolder, "trangchu.png");
+                return File.Exists(imagePath) ? imagePath : "";
+            }
         }
         private void ShowPassword_Checked(object sender, RoutedEventArgs e)
         {

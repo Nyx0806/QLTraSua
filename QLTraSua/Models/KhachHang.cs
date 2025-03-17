@@ -10,14 +10,14 @@ namespace QLTraSua.Models
     {
         private string maKhachHang;
         private string tenKhachHang;
-        private int sdt;
+        private string sdt;
         private int tichDiem;
 
         public KhachHang()
         {
         }
 
-        public KhachHang(string maKhachHang, string tenKhachHang, int sdt, int tichDiem)
+        public KhachHang(string maKhachHang, string tenKhachHang, string sdt, int tichDiem)
         {
             this.maKhachHang = maKhachHang;
             this.tenKhachHang = tenKhachHang;
@@ -27,7 +27,7 @@ namespace QLTraSua.Models
 
         public string MaKhachHang { get => maKhachHang; set => maKhachHang = value; }
         public string TenKhachHang { get => tenKhachHang; set => tenKhachHang = value; }
-        public int Sdt { get => sdt; set => sdt = value; }
+        public string Sdt { get => sdt; set => sdt = value; }
         public int TichDiem { get => tichDiem; set => tichDiem = value; }
     }
 

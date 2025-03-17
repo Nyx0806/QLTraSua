@@ -12,7 +12,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.IO;
 
 namespace QLTraSua.Forms.TrangChu
 {
@@ -21,10 +21,26 @@ namespace QLTraSua.Forms.TrangChu
     /// </summary>
     public partial class TrangChu : Window
     {
+        public string ImagePath { get; set; } // Thuộc tính lưu đường dẫn ảnh
         public TrangChu()
         {
             InitializeComponent();
+            ImagePath = GetImagePath("user_icon.png"); // Gán ảnh từ thư mục Images
+            DataContext = this; // Kết nối XAML với thuộc tính ImagePath
         }
+        private string GetImagePath(string fileName)
+        {
+            string imageFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images");
+            string imagePath = Path.Combine(imageFolder, fileName);
+
+            if (!File.Exists(imagePath))
+            {
+                string defaultImagePath = Path.Combine(imageFolder, "default.jpg");
+                return File.Exists(defaultImagePath) ? defaultImagePath : "";
+            }
+            return imagePath;
+        }
+
         private void Mo(Grid panel1, UserControl activeform, UserControl childform)
         {
             if (activeform != null)

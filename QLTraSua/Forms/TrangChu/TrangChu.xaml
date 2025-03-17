@@ -18,7 +18,7 @@
                         <!-- Hình tròn -->
                         <Ellipse Stroke="#CE9859" StrokeThickness="2" Margin="-625,-366,576,317">
                             <Ellipse.Fill>
-                                <ImageBrush ImageSource="pack://application:,,,/Images/default.jpg" Stretch="UniformToFill"/>
+                                <ImageBrush ImageSource="{Binding ImagePath}" Stretch="UniformToFill"/>
                             </Ellipse.Fill>
                         </Ellipse>
                     </Grid>

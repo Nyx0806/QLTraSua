@@ -8,19 +8,19 @@ namespace QLTraSua.Models
 {
     class Ban
     {
-        private int soBan;
+        private string soBan;
         private string trangThaiBan;
         private string loai;    
         public Ban()
         {
         }
-        public Ban(int soBan, string trangThaiBan, string loai)
+        public Ban(string soBan, string trangThaiBan, string loai)
         {
             this.soBan = soBan;
             this.trangThaiBan = trangThaiBan;
             this.loai = loai;
         }
-        public int SoBan { get => soBan; set => soBan = value; }
+        public string SoBan { get => soBan; set => soBan = value; }
         public string TrangThaiBan { get => trangThaiBan; set => trangThaiBan = value; }
         public string Loai { get => loai; set => loai = value; }
     }
