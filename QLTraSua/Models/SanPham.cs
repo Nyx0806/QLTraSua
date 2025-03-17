@@ -84,7 +84,7 @@ namespace QLTraSua.Models
         }
 
         // Danh sách trạng thái cho ComboBox
-        public static List<string> TinhTrangList { get; } = new List<string> { "Còn hàng", "Hết hàng" };
+        public static List<string> TinhTrangList { get; } = new List<string> { "Đang bán", "Nghỉ bán" };
 
         public string TinhTrang
         {
