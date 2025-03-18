@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.IO;
 using System.Data.SqlClient;
+using System.Collections.ObjectModel;
 
 namespace QLTraSua.Forms.DatMon
 {
@@ -35,34 +36,31 @@ namespace QLTraSua.Forms.DatMon
             return Path.Combine(baseDirectory, "Images");
         }
 
-        private void TaiDanhSachMon()
+        public void TaiDanhSachMon()
         {
             string query = "SELECT * FROM SanPham WHERE LTRIM(RTRIM(LOWER(loai))) = N'trà sữa'";
             List<SanPham> danhSachSanPham = new Modify().SanPhams(query);
 
-            panelMon.Children.Clear();
+            panelMon.Children.Clear(); // Xóa dữ liệu cũ trước khi tải mới
+
+            if (danhSachSanPham.Count == 0)
+            {
+                MessageBox.Show("Không có sản phẩm nào trong danh mục Trà Sữa.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
 
             foreach (var mon in danhSachSanPham)
             {
-                string imagePath = TimAnhTuThuMuc(mon.MaSanPham);
-
                 StackPanel stackPanel = new StackPanel { Orientation = Orientation.Vertical, Margin = new Thickness(10) };
 
-                try
+                Image img = new Image
                 {
-                    Image img = new Image
-                    {
-                        Source = new BitmapImage(new Uri(imagePath, UriKind.Absolute)),
-                        Width = 180,
-                        Height = 140,
-                        Stretch = Stretch.Fill
-                    };
-                    stackPanel.Children.Add(img);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Lỗi tải ảnh {imagePath}: {ex.Message}");
-                }
+                    Source = new BitmapImage(new Uri(TimAnhTuThuMuc(mon.MaSanPham), UriKind.Absolute)),
+                    Width = 180,
+                    Height = 140,
+                    Stretch = Stretch.Fill
+                };
+                stackPanel.Children.Add(img);
 
                 TextBlock txtTen = new TextBlock
                 {
@@ -92,10 +90,11 @@ namespace QLTraSua.Forms.DatMon
                     BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F2C193"))
                 };
 
-                btn.Click += (s, e) => ThemMonVaoDatMon(mon);
+                btn.Click += (s, e) => datMon?.ThemMon(mon);
                 panelMon.Children.Add(btn);
             }
         }
+
 
         private string TimAnhTuThuMuc(string maSanPham)
         {
@@ -112,7 +111,7 @@ namespace QLTraSua.Forms.DatMon
 
         private void ThemMonVaoDatMon(SanPham mon)
         {
-            datMon?.ThemMon(mon);
+            datMon?.ThemMon(mon); // 🔹 Gọi ThemMon từ DatMon
         }
     }
 }

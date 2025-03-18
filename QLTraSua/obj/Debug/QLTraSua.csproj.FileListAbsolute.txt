@@ -24,3 +24,7 @@ F:\C_C#_C++\Visual Studio Code\QLTraSua\QLTraSua\obj\Debug\Forms\DatMon\TraSua.b
 F:\C_C#_C++\Visual Studio Code\QLTraSua\QLTraSua\obj\Debug\Forms\DatMon\DoAnVat.baml
 F:\C_C#_C++\Visual Studio Code\QLTraSua\QLTraSua\obj\Debug\QLTraSua.exe
 F:\C_C#_C++\Visual Studio Code\QLTraSua\QLTraSua\obj\Debug\QLTraSua.pdb
+F:\C_C#_C++\Visual Studio Code\QLTraSua\QLTraSua\obj\Debug\Forms\CapNhatMon\TraSuaCapNhat.baml
+F:\C_C#_C++\Visual Studio Code\QLTraSua\QLTraSua\obj\Debug\Forms\CapNhatMon\TraSuaCapNhat.g.cs
+F:\C_C#_C++\Visual Studio Code\QLTraSua\QLTraSua\obj\Debug\Forms\DoanhThu\DoanhThu.g.cs
+F:\C_C#_C++\Visual Studio Code\QLTraSua\QLTraSua\obj\Debug\Forms\DoanhThu\DoanhThu.baml

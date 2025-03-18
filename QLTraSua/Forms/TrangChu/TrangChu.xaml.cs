@@ -86,7 +86,7 @@ namespace QLTraSua.Forms.TrangChu
         {
             ResetButtonColors();
             btnDoanhThu.Background = new SolidColorBrush(Color.FromRgb(206, 152, 89)); // Đổi màu khi bấm
-            //Mo(chinhchu, activeform, new DoanhThu());
+            Mo(chinhchu, activeform, new QLTraSua.Forms.DoanhThu.DoanhThu());
         }
         private void Button_Seting(object sender, RoutedEventArgs e)
         {

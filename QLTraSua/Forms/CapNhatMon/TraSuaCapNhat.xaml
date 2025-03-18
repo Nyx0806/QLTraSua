@@ -1,0 +1,88 @@
+﻿<Window x:Class="QLTraSua.Forms.CapNhatMon.TraSuaCapNhat"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Cập Nhật Trà Sữa" Height="600" Width="900"
+        Background="#FBE7D3">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid>
+            <WrapPanel Margin="10" HorizontalAlignment="Center">
+                <!-- Mỗi Border đại diện cho một sản phẩm -->
+                <Border BorderBrush="#E8B897" BorderThickness="2" CornerRadius="10" Margin="10"
+                        Background="White" Padding="10">
+                    <StackPanel>
+                        <Image Source="Images/tra_sua_thai_xanh.jpg" Height="150" Width="150"/>
+                        <TextBlock Text="Trà Sữa Thái Xanh       " FontWeight="Bold" FontSize="16" Margin="5"/>
+                        <TextBlock Text="Giá: 50.000đ" Foreground="Red" FontSize="18" FontWeight="Bold"/>
+                        <Button Content="Chỉnh sửa" Margin="5" Background="#F4A261" Foreground="White"/>
+                    </StackPanel>
+                </Border>
+
+                <Border BorderBrush="#E8B897" BorderThickness="2" CornerRadius="10" Margin="10"
+                        Background="White" Padding="10">
+                    <StackPanel>
+                        <Image Source="Images/tra_sua_kem_trung.jpg" Height="150" Width="150"/>
+                        <TextBlock Text="Trà Sữa Kem Trứng" FontWeight="Bold" FontSize="16" Margin="5"/>
+                        <TextBlock Text="Giá: 55.000đ" Foreground="Red" FontSize="18" FontWeight="Bold"/>
+                        <Button Content="Chỉnh sửa" Margin="5" Background="#F4A261" Foreground="White"/>
+                    </StackPanel>
+                </Border>
+                <Border BorderBrush="#E8B897" BorderThickness="2" CornerRadius="10" Margin="10"
+         Background="White" Padding="10">
+                    <StackPanel>
+                        <Image Source="Images/tra_sua_kem_trung.jpg" Height="150" Width="150"/>
+                        <TextBlock Text="Hồng Trà" FontWeight="Bold" FontSize="16" Margin="5"/>
+                        <TextBlock Text="Giá: 45.000đ" Foreground="Red" FontSize="18" FontWeight="Bold"/>
+                        <Button Content="Chỉnh sửa" Margin="5" Background="#F4A261" Foreground="White"/>
+                    </StackPanel>
+                </Border>
+                <Border BorderBrush="#E8B897" BorderThickness="2" CornerRadius="10" Margin="10"
+         Background="White" Padding="10">
+                    <StackPanel>
+                        <Image Source="Images/tra_sua_kem_trung.jpg" Height="150" Width="150"/>
+                        <TextBlock Text="Trà Sữa Gạo Rang" FontWeight="Bold" FontSize="16" Margin="5"/>
+                        <TextBlock Text="Giá: 45.000đ" Foreground="Red" FontSize="18" FontWeight="Bold"/>
+                        <Button Content="Chỉnh sửa" Margin="5" Background="#F4A261" Foreground="White"/>
+                    </StackPanel>
+                </Border>
+                <Border BorderBrush="#E8B897" BorderThickness="2" CornerRadius="10" Margin="10"
+         Background="White" Padding="10">
+                    <StackPanel>
+                        <Image Source="Images/tra_sua_kem_trung.jpg" Height="150" Width="150"/>
+                        <TextBlock Text="Trà Sữa Truyền Thống" FontWeight="Bold" FontSize="16" Margin="5"/>
+                        <TextBlock Text="Giá: 45.000đ" Foreground="Red" FontSize="18" FontWeight="Bold"/>
+                        <Button Content="Chỉnh sửa" Margin="5" Background="#F4A261" Foreground="White"/>
+                    </StackPanel>
+                </Border>
+                <Border BorderBrush="#E8B897" BorderThickness="2" CornerRadius="10" Margin="10"
+         Background="White" Padding="10">
+                    <StackPanel>
+                        <Image Source="Images/tra_sua_kem_trung.jpg" Height="150" Width="150"/>
+                        <TextBlock Text="Trà Sữa Socola        " FontWeight="Bold" FontSize="16" Margin="5"/>
+                        <TextBlock Text="Giá: 55.000đ" Foreground="Red" FontSize="18" FontWeight="Bold"/>
+                        <Button Content="Chỉnh sửa" Margin="5" Background="#F4A261" Foreground="White"/>
+                    </StackPanel>
+                </Border>
+                <Border BorderBrush="#E8B897" BorderThickness="2" CornerRadius="10" Margin="10"
+         Background="White" Padding="10">
+                    <StackPanel>
+                        <Image Source="Images/tra_sua_kem_trung.jpg" Height="150" Width="150"/>
+                        <TextBlock Text="Trà Sữa Kem Flan" FontWeight="Bold" FontSize="16" Margin="5"/>
+                        <TextBlock Text="Giá: 55.000đ" Foreground="Red" FontSize="18" FontWeight="Bold"/>
+                        <Button Content="Chỉnh sửa" Margin="5" Background="#F4A261" Foreground="White"/>
+                    </StackPanel>
+                </Border>
+                <Border BorderBrush="#E8B897" BorderThickness="2" CornerRadius="10" Margin="10"
+         Background="White" Padding="10">
+                    <StackPanel>
+                        <Image Source="Images/tra_sua_kem_trung.jpg" Height="150" Width="150"/>
+                        <TextBlock Text="Trà Chanh" FontWeight="Bold" FontSize="16" Margin="5"/>
+                        <TextBlock Text="Giá: 45.000đ" Foreground="Red" FontSize="18" FontWeight="Bold"/>
+                        <Button Content="Chỉnh sửa" Margin="5" Background="#F4A261" Foreground="White"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Thêm các Border tương tự cho các loại trà sữa khác -->
+            </WrapPanel>
+        </Grid>
+    </ScrollViewer>
+</Window>

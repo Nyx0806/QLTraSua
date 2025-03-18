@@ -12,103 +12,114 @@
             <ColumnDefinition Width="3*" />
             <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
+
         <!-- Danh sách bàn -->
-        <Grid x:Name="gridMenu">
-            <UniformGrid Columns="4" Rows="4" Grid.Column="0" Margin="10,42,10,10" x:Name="gridBanAn">
-            </UniformGrid >
+        <Grid x:Name="gridBanAn" Visibility="Visible" Grid.Column="0">
+            <UniformGrid Columns="4" Rows="4" Margin="10,42,10,10" x:Name="banAnContainer"/>
         </Grid>
-        <!--Danh sách món-->
+        <!-- Nút chức năng -->
         <Button x:Name="Menu_Trasua" Content="Trà sữa" HorizontalAlignment="Left" Margin="45,5,0,0"
-            VerticalAlignment="Top" Height="30" Width="110" Background="#F2C193"
-            BorderBrush="#83705E" BorderThickness="4" FontSize="17" FontWeight="Bold" Click="Menu_Trasua_Click">
+                VerticalAlignment="Top" Height="30" Width="110" Background="#F2C193"
+                BorderBrush="#83705E" BorderThickness="4" FontSize="17" FontWeight="Bold" Click="Menu_Trasua_Click">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Border Background="{TemplateBinding Background}" 
-                BorderBrush="{TemplateBinding BorderBrush}" 
-                BorderThickness="{TemplateBinding BorderThickness}" 
-                CornerRadius="10">
+        BorderBrush="{TemplateBinding BorderBrush}" 
+        BorderThickness="{TemplateBinding BorderThickness}" 
+        CornerRadius="10">
                         <!-- Bo góc -->
                         <ContentPresenter HorizontalAlignment="Center" 
-                              VerticalAlignment="Center"/>
+                      VerticalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Button Content="Đồ ăn vặt" HorizontalAlignment="Left" Margin="175,5,0,0"
-            VerticalAlignment="Top" Height="31" Width="110" Background="#F2C193"
-            BorderBrush="#83705E" BorderThickness="4" FontSize="17" FontWeight="Bold" Click="Menu_AnVat_Click">
+        <Button x:Name="Menu_Doanvat" Content="Đồ ăn vặt" HorizontalAlignment="Left" Margin="175,5,0,0"
+                VerticalAlignment="Top" Height="31" Width="110" Background="#F2C193"
+                BorderBrush="#83705E" BorderThickness="4" FontSize="17" FontWeight="Bold" Click="Menu_AnVat_Click">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Background="{TemplateBinding Background}" 
-                BorderBrush="{TemplateBinding BorderBrush}" 
-                BorderThickness="{TemplateBinding BorderThickness}" 
-                CornerRadius="10">
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            CornerRadius="10">
                         <!-- Bo góc -->
                         <ContentPresenter HorizontalAlignment="Center" 
-                              VerticalAlignment="Center"/>
+                                          VerticalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Button Content="Quay lại" HorizontalAlignment="Left" Margin="330,5,0,0"
-         VerticalAlignment="Top" Height="31" Width="110" Background="#F2C193"
-         BorderBrush="#83705E" BorderThickness="4" FontSize="17" FontWeight="Bold" Click="QuayLai_Click">
+        <Button x:Name="Menu_Quaylai" Content="Quay lại" HorizontalAlignment="Left" Margin="330,5,0,0"
+                VerticalAlignment="Top" Height="31" Width="110" Background="#F2C193"
+                BorderBrush="#83705E" BorderThickness="4" FontSize="17" FontWeight="Bold" Click="QuayLai_Click">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Border Background="{TemplateBinding Background}" 
-                 BorderBrush="{TemplateBinding BorderBrush}" 
-                 BorderThickness="{TemplateBinding BorderThickness}" 
-                 CornerRadius="10">
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            CornerRadius="10">     
                         <!-- Bo góc -->
                         <ContentPresenter HorizontalAlignment="Center" 
-                       VerticalAlignment="Center"/>
+                                          VerticalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>
             </Button.Template>
         </Button>
+        <!-- Nút Đặt Mang Về -->
+        <Button x:Name="Menu_Mangve" Content="Đặt Mang Về" HorizontalAlignment="Left" Margin="480,5,0,0"
+                VerticalAlignment="Top" Height="31" Width="120" Background="#F2C193"
+                BorderBrush="#83705E" BorderThickness="4" FontSize="17" FontWeight="Bold" 
+                Click="DatMangVe_Click">
+        <Button.Template>
+            <ControlTemplate TargetType="Button">
+                <Border Background="{TemplateBinding Background}" 
+                    BorderBrush="{TemplateBinding BorderBrush}" 
+                    BorderThickness="{TemplateBinding BorderThickness}" 
+                    CornerRadius="10">
+                    <!-- Bo góc -->
+                    <ContentPresenter HorizontalAlignment="Center" 
+                                  VerticalAlignment="Center"/>
+                </Border>
+            </ControlTemplate>
+        </Button.Template>
+        </Button>
+
         <!-- Khu vực hóa đơn -->
-        <Grid Grid.Column="1" Margin="5">
+        <Grid x:Name="gridHoaDon" Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="0*"/>
-                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Border  Margin="10,10,10,10" Background="#E8C097" CornerRadius="10" Grid.Row="1">
+
+            <!-- 🔹 Luôn hiển thị hóa đơn -->
+            <Border Background="#E8C097" CornerRadius="10" Grid.Row="1">
                 <Grid Margin="10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="80" />
                         <RowDefinition />
                         <RowDefinition Height="40" />
                     </Grid.RowDefinitions>
+
                     <StackPanel>
-                        <TextBlock  Text="Thông Tin Khách Hàng" FontWeight="Bold" />
-                        <!-- Thay PlaceholderText bằng Hint Text -->
-                        <Grid >
+                        <TextBlock Text="Thông Tin Khách Hàng" FontWeight="Bold"/>
+                        <Grid>
                             <TextBox x:Name="txtTenKhach" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
                             <TextBlock x:Name="lblTenKhach" Text="Tên Khách Hàng" Foreground="Gray"
-                                     VerticalAlignment="Center" Margin="5,0,0,0"
-                                     IsHitTestVisible="False"/>
+                               VerticalAlignment="Center" Margin="5,0,0,0" IsHitTestVisible="False"/>
                         </Grid>
                         <Grid>
                             <TextBox x:Name="txtSDT" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
-                            <TextBlock x:Name="lblSDT" Text="Số Điện Thoại" Foreground="Gray" 
-                                VerticalAlignment="Center" Margin="5,0,0,0"
-                                IsHitTestVisible="False" />
+                            <TextBlock x:Name="lblSDT" Text="Số Điện Thoại" Foreground="Gray"
+                               VerticalAlignment="Center" Margin="5,0,0,0" IsHitTestVisible="False"/>
                         </Grid>
-                        <!--Danh sách bàn đang chọn-->
-                        <Grid>
-                            <StackPanel>
-                                <TextBlock Text="Thông Tin Hóa Đơn" FontWeight="Bold" Margin="5 10 0 5" />
-                                <StackPanel>
-                                    
-                                </StackPanel>
-                            </StackPanel>
-                        </Grid>
-                        
+                        <TextBlock Text="Thông Tin Hóa Đơn" FontWeight="Bold" Margin="5 10 0 5"/>
                     </StackPanel>
 
                     <Grid Grid.Row="1">
-                        <DataGrid  x:Name="dataGridMon" AutoGenerateColumns="False" HeadersVisibility="Column"
-                             Background="White">
+                        <DataGrid x:Name="dataGridMon" AutoGenerateColumns="False" HeadersVisibility="Column"
+                          Background="White">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Tên Sản Phẩm" Binding="{Binding TenSanPham}" Width="*" />
                                 <DataGridTextColumn Header="Đơn Giá" Binding="{Binding Gia}" Width="80" />
@@ -117,12 +128,16 @@
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>
+
                     <Grid Grid.Row="2">
-                        <TextBlock HorizontalAlignment="Left" x:Name="lblTongTien" Text="Tổng tiền: 0 VNĐ" FontWeight="Bold" Margin="5" />
+                        <TextBlock HorizontalAlignment="Left" x:Name="lblTongTien" Text="Tổng tiền: 0 VNĐ"
+                           FontWeight="Bold" Margin="5"/>
                         <Button HorizontalAlignment="Right" Content="In Đơn" Click="InDon_Click" Width="100" Height="30"/>
                     </Grid>
                 </Grid>
             </Border>
         </Grid>
+        <!-- 🔹 Khu vực để hiển thị TraSua và DoAnVat -->
+        <Grid x:Name="gridMon" Grid.Column="0" Margin="10,42,10,10"/>
     </Grid>
 </UserControl>

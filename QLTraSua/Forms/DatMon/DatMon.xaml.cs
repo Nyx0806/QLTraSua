@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Configuration;
+using QLTraSua.SQL;
 
 namespace QLTraSua.Forms.DatMon
 {
@@ -24,34 +25,21 @@ namespace QLTraSua.Forms.DatMon
     /// </summary>
     public partial class DatMon : UserControl
     {
-        public ObservableCollection<SanPham> DanhSachMon { get; set; }
-        private Dictionary<string, ObservableCollection<SanPham>> banHoaDon = new Dictionary<string, ObservableCollection<SanPham>>();
-        private Dictionary<string, bool> trangThaiBan = new Dictionary<string, bool>();
-        private Button banDangChon = null;
-
-
+        private readonly Modify modify = new Modify();
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["QLTraSuaDB"].ConnectionString;
+
+        public ObservableCollection<SanPham> DanhSachMon { get; set; } = new ObservableCollection<SanPham>();
+        Dictionary<string, ObservableCollection<SanPham>> banHoaDon = new Dictionary<string, ObservableCollection<SanPham>>();
+        Dictionary<string, bool> trangThaiBan = new Dictionary<string, bool>();
+        public Button banDangChon = null;
+        private bool laDonMangVe = false;
+        UserControl activeform = null;
 
         public DatMon()
         {
             InitializeComponent();
-            DanhSachMon = new ObservableCollection<SanPham>();
             dataGridMon.ItemsSource = DanhSachMon;
             KhoiTaoBanAn();
-        }
-
-        private void CapNhatTrangThaiBan(string soBan, string trangThai)
-        {
-            string query = "UPDATE Ban SET trangthai = @TrangThai WHERE banSo = @BanSo";
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            using (SqlCommand cmd = new SqlCommand(query, conn))
-            {
-                conn.Open();
-                cmd.Parameters.AddWithValue("@TrangThai", trangThai);
-                cmd.Parameters.AddWithValue("@BanSo", soBan);
-                cmd.ExecuteNonQuery();
-            }
         }
 
         private void KhoiTaoBanAn()
@@ -59,135 +47,269 @@ namespace QLTraSua.Forms.DatMon
             string query = "SELECT banSo, trangthai, loai FROM Ban";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
-            using (SqlCommand cmd = new SqlCommand(query, conn))
             {
-                conn.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader())
+                using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    while (reader.Read())
+                    conn.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        string soBan = reader["banSo"] != DBNull.Value ? reader["banSo"].ToString().Trim() : "";
-                        string trangThai = reader["trangthai"] != DBNull.Value ? reader["trangthai"].ToString().Trim() : "";
-                        string loai = reader["loai"] != DBNull.Value ? reader["loai"].ToString().Trim() : "";
-
-                        if (string.IsNullOrEmpty(soBan)) continue;
-
-                        Grid grid = new Grid { Width = 100, Height = 80 };
-                        grid.Children.Add(new TextBlock { Text = soBan, VerticalAlignment = VerticalAlignment.Center, HorizontalAlignment = HorizontalAlignment.Center });
-                        grid.Children.Add(new TextBlock { Text = loai, VerticalAlignment = VerticalAlignment.Bottom, HorizontalAlignment = HorizontalAlignment.Center, FontSize = 13, Margin = new Thickness(0, 0, 0, 10) });
-
-                        Button btnBan = new Button
+                        while (reader.Read())
                         {
-                            Content = grid,
-                            Background = trangThai == "Đang sử dụng" ? Brushes.LightGreen : new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D49A6A")),
-                            FontSize = 16,
-                            FontWeight = FontWeights.Bold,
-                            Width = 100,
-                            Height = 80,
-                            Margin = new Thickness(5)
-                        };
+                            string soBan = reader["banSo"]?.ToString().Trim() ?? "";
+                            string trangThai = reader["trangthai"]?.ToString().Trim() ?? "";
+                            string loai = reader["loai"]?.ToString().Trim() ?? "";
 
-                        btnBan.Click += (s, e) => ChonBan(btnBan);
-                        gridBanAn.Children.Add(btnBan);
+                            if (string.IsNullOrEmpty(soBan)) continue;
 
-                        if (!banHoaDon.ContainsKey(soBan)) banHoaDon[soBan] = new ObservableCollection<SanPham>();
-                        if (!trangThaiBan.ContainsKey(soBan)) trangThaiBan[soBan] = (trangThai == "Đang sử dụng");
+                            Button btnBan = new Button
+                            {
+                                Content = $"{soBan}\n{loai}",
+                                Background = trangThai == "Đang sử dụng" ? Brushes.LightGreen :
+                                    new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D49A6A")),
+                                FontSize = 16,
+                                FontWeight = FontWeights.Bold,
+                                Width = 100,
+                                Height = 80,
+                                Margin = new Thickness(5)
+                            };
+
+                            btnBan.Click += (s, e) => ChonBan(btnBan, soBan);
+                            banAnContainer.Children.Add(btnBan);
+
+                            // 🔥 Sửa lỗi `TryAdd()` bằng `ContainsKey()` ✅
+                            if (!banHoaDon.ContainsKey(soBan))
+                            {
+                                banHoaDon[soBan] = new ObservableCollection<SanPham>();
+                            }
+
+                            if (!trangThaiBan.ContainsKey(soBan))
+                            {
+                                trangThaiBan[soBan] = trangThai == "Đang sử dụng";
+                            }
+                        }
                     }
                 }
             }
         }
 
-        private void ChonBan(Button btnBan)
+
+        private void ChonBan(Button btnBan, string soBan)
         {
-            if (btnBan.Content is Grid grid && grid.Children[0] is TextBlock textBlock)
+            if (!trangThaiBan.ContainsKey(soBan)) return;
+
+            if (!trangThaiBan[soBan])
             {
-                string soBan = textBlock.Text.Trim();
+                btnBan.Background = Brushes.LightGreen;
+                trangThaiBan[soBan] = true;
+                CapNhatTrangThaiBan(soBan, "Đang sử dụng");
+            }
 
-                if (!trangThaiBan.ContainsKey(soBan)) return;
-
-                if (!trangThaiBan[soBan])
+            if (banDangChon != null)
+            {
+                string banCu = banDangChon.Content.ToString().Split('\n')[0].Trim();
+                if (trangThaiBan.ContainsKey(banCu) && !trangThaiBan[banCu])
                 {
-                    btnBan.Background = Brushes.LightGreen;
-                    trangThaiBan[soBan] = true;
-                    CapNhatTrangThaiBan(soBan, "Đang sử dụng");
+                    banDangChon.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D49A6A"));
                 }
+            }
 
-                banDangChon = btnBan;
-                DanhSachMon = banHoaDon[soBan];
+            banDangChon = btnBan;
 
-                dataGridMon.ItemsSource = DanhSachMon;
-                dataGridMon.Items.Refresh();
+            // 🔹 Xóa danh sách món cũ trước khi load bàn mới
+            DanhSachMon.Clear();
 
-                CapNhatTongTien();
+            if (!banHoaDon.ContainsKey(soBan))
+            {
+                banHoaDon[soBan] = new ObservableCollection<SanPham>();
+            }
+
+            DanhSachMon = banHoaDon[soBan];
+
+            dataGridMon.ItemsSource = DanhSachMon;
+            dataGridMon.Items.Refresh();
+
+            CapNhatTongTien();
+
+            gridBanAn.Visibility = Visibility.Collapsed;
+            gridHoaDon.Visibility = Visibility.Visible;
+            MoForm(new TraSua(this));
+        }
+
+
+        private void CapNhatTrangThaiBan(string soBan, string trangThai)
+        {
+            string query = "UPDATE Ban SET trangthai = @TrangThai WHERE banSo = @BanSo";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    conn.Open();
+                    cmd.Parameters.AddWithValue("@TrangThai", trangThai);
+                    cmd.Parameters.AddWithValue("@BanSo", soBan);
+                    cmd.ExecuteNonQuery();
+                }
             }
         }
 
+
         public void ThemMon(SanPham mon)
         {
-            if (mon == null || banDangChon == null) return;
+            if (mon == null) return;
 
-            if (banDangChon.Content is Grid grid && grid.Children[0] is TextBlock textBlock)
+            string soBan = laDonMangVe ? "MangVề" : banDangChon?.Content.ToString().Split('\n')[0].Trim();
+            if (!banHoaDon.ContainsKey(soBan)) banHoaDon[soBan] = new ObservableCollection<SanPham>();
+
+            var danhSachCuaBan = banHoaDon[soBan];
+
+            SanPham monDaTonTai = danhSachCuaBan.FirstOrDefault(x => x.MaSanPham == mon.MaSanPham);
+            if (monDaTonTai != null)
             {
-                string soBan = textBlock.Text.Trim();
-
-                if (!banHoaDon.ContainsKey(soBan)) banHoaDon[soBan] = new ObservableCollection<SanPham>();
-
-                ObservableCollection<SanPham> danhSachCuaBan = banHoaDon[soBan];
-                SanPham monDaTonTai = danhSachCuaBan.FirstOrDefault(x => x.MaSanPham == mon.MaSanPham);
-
-                if (monDaTonTai != null)
-                {
-                    monDaTonTai.SoLuong++;
-                }
-                else
-                {
-                    mon.SoLuong = 1;
-                    danhSachCuaBan.Add(mon);
-                }
-
-                dataGridMon.Items.Refresh();
-                CapNhatTongTien();
+                monDaTonTai.SoLuong++;
             }
+            else
+            {
+                mon.SoLuong = 1;
+                danhSachCuaBan.Add(mon);
+            }
+
+            dataGridMon.ItemsSource = danhSachCuaBan;
+            dataGridMon.Items.Refresh();
+            CapNhatTongTien();
         }
 
         private void CapNhatTongTien()
         {
             decimal tongTien = DanhSachMon.Sum(mon => mon.ThanhTien);
-            lblTongTien.Text = $"Tổng tiền: {tongTien:N0} VNĐ";
+            int diemTichLuy = modify.LayDiemTichLuy(txtSDT.Text.Trim());
+            decimal giamGia = Math.Min(diemTichLuy * 1000, tongTien);
+
+            lblTongTien.Text = $"Tổng tiền: {tongTien - giamGia:N0} VNĐ (Giảm: {giamGia:N0} VNĐ)";
         }
+        private void DatMangVe_Click(object sender, RoutedEventArgs e)
+        {
+            laDonMangVe = true;
+            banDangChon = null;
+
+            // 🔹 Xóa món cũ trước khi đặt món mới
+            DanhSachMon.Clear();
+
+            if (!banHoaDon.ContainsKey("MangVề"))
+            {
+                banHoaDon["MangVề"] = new ObservableCollection<SanPham>();
+            }
+
+            DanhSachMon = banHoaDon["MangVề"];
+
+            dataGridMon.ItemsSource = DanhSachMon;
+            dataGridMon.Items.Refresh();
+
+            gridBanAn.Visibility = Visibility.Collapsed;
+            gridHoaDon.Visibility = Visibility.Visible;
+            gridMon.Visibility = Visibility.Visible;
+
+            MoForm(new TraSua(this));
+        }
+
+
+        private void ResetBanSauKhiIn(string soBan)
+        {
+            if (!string.IsNullOrEmpty(soBan) && banHoaDon.ContainsKey(soBan))
+            {
+                banHoaDon[soBan].Clear();
+            }
+
+            DanhSachMon.Clear();
+            dataGridMon.ItemsSource = null;
+            dataGridMon.Items.Refresh();
+
+            txtTenKhach.Text = "";
+            txtSDT.Text = "";
+
+            if (!laDonMangVe && !string.IsNullOrEmpty(soBan))
+            {
+                trangThaiBan[soBan] = false;
+                CapNhatTrangThaiBan(soBan, "Trống");
+
+                foreach (Button btnBan in banAnContainer.Children)
+                {
+                    if (btnBan.Content.ToString().StartsWith(soBan))
+                    {
+                        btnBan.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D49A6A"));
+                        break;
+                    }
+                }
+            }
+
+            gridHoaDon.Visibility = Visibility.Collapsed;
+            gridBanAn.Visibility = Visibility.Visible;
+        }
+
 
         private void InDon_Click(object sender, RoutedEventArgs e)
         {
-            if (banDangChon == null) return;
-
-            if (banDangChon.Content is Grid grid && grid.Children[0] is TextBlock textBlock)
+            if (DanhSachMon == null || DanhSachMon.Count == 0)
             {
-                string soBan = textBlock.Text.Trim();
-
-                CapNhatTrangThaiBan(soBan, "Trống");
-                banDangChon.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#D49A6A"));
-                trangThaiBan[soBan] = false;
-                banHoaDon[soBan].Clear();
-
-                dataGridMon.ItemsSource = null;
-                dataGridMon.Items.Refresh();
-
-                MessageBox.Show($"In hóa đơn cho bàn {soBan} thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Không có món nào để in hóa đơn!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
             }
+
+            string tenKhach = txtTenKhach.Text.Trim();
+            string sdtKhach = txtSDT.Text.Trim();
+
+            if (string.IsNullOrEmpty(tenKhach) || string.IsNullOrEmpty(sdtKhach))
+            {
+                MessageBox.Show("Vui lòng nhập thông tin khách hàng!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            string maKH = modify.LayMaKH(tenKhach, sdtKhach);
+            if (maKH == null)
+            {
+                MessageBox.Show("Không thể lấy hoặc tạo mã khách hàng!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            string maHoaDon = modify.TaoMaHoaDon();
+            string soBan = laDonMangVe ? "MangVề" : banDangChon?.Content.ToString().Split('\n')[0].Trim();
+            decimal tongTien = DanhSachMon.Sum(mon => mon.ThanhTien);
+            int diemMuonDung = Math.Min(modify.LayDiemTichLuy(sdtKhach), (int)(tongTien / 1000));
+            decimal giamGia = diemMuonDung * 1000;
+            tongTien -= giamGia;
+            int diemCongThem = (int)(tongTien / 10000);
+
+            bool hoaDonThemThanhCong = modify.ThemHoaDon(maHoaDon, maKH, soBan, tongTien, giamGia);
+            if (!hoaDonThemThanhCong)
+            {
+                MessageBox.Show("Lỗi khi thêm hóa đơn!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            bool chiTietThemThanhCong = modify.ThemChiTietHoaDon(maHoaDon, DanhSachMon.ToList());
+            if (!chiTietThemThanhCong)
+            {
+                MessageBox.Show("Lỗi khi thêm chi tiết hóa đơn!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            bool capNhatDiemThanhCong = modify.CapNhatDiemTichLuy(sdtKhach, diemMuonDung, diemCongThem);
+            if (!capNhatDiemThanhCong)
+            {
+                MessageBox.Show("Lỗi khi cập nhật điểm tích lũy!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            MessageBox.Show($"Hóa đơn đã lưu thành công!\nMã hóa đơn: {maHoaDon}\nTổng tiền: {tongTien:N0} VNĐ\nGiảm giá: {giamGia:N0} VNĐ\nĐiểm tích lũy cộng thêm: {diemCongThem}",
+                            "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            ResetBanSauKhiIn(soBan);
         }
 
 
 
-        private void Mo(Grid panel1, UserControl activeform, UserControl childform)
-        {
-            if (activeform != null)
-            {
-                panel1.Children.Remove(activeform); // Xóa giao diện cũ
-            }
-            activeform = childform; // Gán giao diện mới
-            panel1.Children.Add(childform); // Thêm vào Grid
-        }
-        UserControl activeform = null;
+
+
+
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             if (sender == txtTenKhach) lblTenKhach.Visibility = Visibility.Collapsed;
@@ -201,19 +323,64 @@ namespace QLTraSua.Forms.DatMon
             if (sender == txtSDT && string.IsNullOrWhiteSpace(txtSDT.Text))
                 lblSDT.Visibility = Visibility.Visible;
         }
+        private void MoForm(UserControl newForm)
+        {
+            if (activeform != null && gridMon.Children.Contains(activeform))
+            {
+                gridMon.Children.Remove(activeform);
+            }
+
+            activeform = newForm;
+            gridMon.Children.Add(activeform);
+
+            // 🔹 Đảm bảo khu vực chọn món hiển thị
+            gridMon.Visibility = Visibility.Visible;
+            gridMon.UpdateLayout(); // Làm mới giao diện
+        }
+
         private void Menu_Trasua_Click(object sender, RoutedEventArgs e)
         {
-           Mo(gridMenu, activeform, new QLTraSua.Forms.DatMon.TraSua(this));
+            MoForm(new TraSua(this)); // Thêm vào gridMon thay vì gridHoaDon
         }
-
         private void Menu_AnVat_Click(object sender, RoutedEventArgs e)
         {
-            Mo(gridMenu, activeform, new QLTraSua.Forms.DatMon.DoAnVat());
+            MoForm(new DoAnVat(this)); // Thêm vào gridMon thay vì gridHoaDon
         }
-
         private void QuayLai_Click(object sender, RoutedEventArgs e)
         {
+            // Nếu có form đang hiển thị, xóa nó khỏi gridMon
+            if (activeform != null && gridMon.Children.Contains(activeform))
+            {
+                gridMon.Children.Remove(activeform);
+                activeform = null;
+            }
+            // 🔹 Đảm bảo hóa đơn luôn hiển thị
+            gridHoaDon.Visibility = Visibility.Visible;
 
+            // 🔹 Hiển thị lại danh sách bàn
+            gridBanAn.Visibility = Visibility.Visible;
+
+            // 🔹 Kiểm tra xem có bàn nào đang chọn không
+            if (banDangChon != null)
+            {
+                string soBan = banDangChon.Content.ToString().Split('\n')[0].Trim();
+
+                // Lấy danh sách món theo bàn
+                if (banHoaDon.ContainsKey(soBan))
+                {
+                    dataGridMon.ItemsSource = banHoaDon[soBan];
+                }
+                else
+                {
+                    dataGridMon.ItemsSource = new ObservableCollection<SanPham>();
+                }
+                dataGridMon.Items.Refresh();
+            }
         }
+
+
+
+
     }
 }
+

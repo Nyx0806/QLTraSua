@@ -80,11 +80,17 @@
     <Compile Include="Forms\DatMon\TraSua.xaml.cs">
       <DependentUpon>TraSua.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\DoanhThu\DoanhThu.xaml.cs">
+      <DependentUpon>DoanhThu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\TrangChu\TrangChu.xaml.cs">
       <DependentUpon>TrangChu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Ban.cs" />
     <Compile Include="Models\ChiTietHoaDon.cs" />
+    <Compile Include="Models\TongDoanhThu\DLDoanhThu.cs" />
+    <Compile Include="Models\TongDoanhThu\doanhthulowest.cs" />
+    <Compile Include="Models\TongDoanhThu\doanhthumax.cs" />
     <Compile Include="Models\HoaDon.cs" />
     <Compile Include="Models\KhachHang.cs" />
     <Compile Include="Models\NhanVien.cs" />
@@ -92,6 +98,10 @@
     <Compile Include="Models\TaiKhoan.cs" />
     <Compile Include="SQL\Connection.cs" />
     <Compile Include="SQL\Modify.cs" />
+    <Page Include="Forms\CapNhatMon\TraSuaCapNhat.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Forms\DatMon\DatMon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -103,6 +113,10 @@
     <Page Include="Forms\DatMon\TraSua.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\DoanhThu\DoanhThu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Forms\TrangChu\TrangChu.xaml">
       <SubType>Designer</SubType>
@@ -148,8 +162,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Forms\CapNhatMon\" />
-    <Folder Include="Forms\DoanhThu\" />
     <Folder Include="Forms\NhanVien\" />
   </ItemGroup>
   <ItemGroup>
