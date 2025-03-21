@@ -8,6 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/database/trasua.mdf")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/database/trasua_log.ldf")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/qltrasua.exe")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/qltrasua.pdb")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("database/trasua.mdf")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("database/trasua_log.ldf")]
 

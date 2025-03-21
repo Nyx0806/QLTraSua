@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QLTraSua.Forms.TrangChu"
         mc:Ignorable="d"
-    WindowStartupLocation="CenterScreen"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
     Title="TrangChu" Height="866" Width="1500"
     Background="#F4D8B5">
 

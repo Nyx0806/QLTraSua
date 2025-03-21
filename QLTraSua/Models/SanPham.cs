@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows.Media.Imaging;
 
 namespace QLTraSua.Models
 {
@@ -12,6 +13,7 @@ namespace QLTraSua.Models
         private int _soLuong = 1;
         private string _loai;
         private string _tinhTrang;
+        private BitmapImage _image;
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
@@ -21,7 +23,7 @@ namespace QLTraSua.Models
 
         public SanPham() { }
 
-        public SanPham(string maSanPham, string tenSanPham, float gia, int soLuong, string loai, string tinhTrang)
+        public SanPham(string maSanPham, string tenSanPham, float gia, int soLuong, string loai, string tinhTrang, BitmapImage image)
         {
             _maSanPham = maSanPham;
             _tenSanPham = tenSanPham;
@@ -29,7 +31,9 @@ namespace QLTraSua.Models
             _soLuong = soLuong;
             _loai = loai;
             _tinhTrang = tinhTrang;
+            _image = image;
         }
+        public BitmapImage Anh { get => _image; set => _image = value; }
 
         public string MaSanPham
         {
@@ -40,7 +44,7 @@ namespace QLTraSua.Models
                 OnPropertyChanged(nameof(MaSanPham));
             }
         }
-
+        
         public string TenSanPham
         {
             get => _tenSanPham;

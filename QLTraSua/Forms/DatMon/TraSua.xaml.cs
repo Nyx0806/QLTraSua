@@ -21,6 +21,7 @@ namespace QLTraSua.Forms.DatMon
     public partial class TraSua : UserControl
     {
         private DatMon datMon;
+        private byte[] imageBytes = null; // Lưu ảnh được chọn
 
         public TraSua(DatMon datMonInstance)
         {

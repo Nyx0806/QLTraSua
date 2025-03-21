@@ -14,6 +14,7 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -26,7 +27,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -71,6 +71,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Forms\CapNhatMon\CapNhatMon.xaml.cs">
+      <DependentUpon>CapNhatMon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CapNhatMon\CapNhat_Anvat.xaml.cs">
+      <DependentUpon>CapNhat_Anvat.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CapNhatMon\CapNhat_Trasua.xaml.cs">
+      <DependentUpon>CapNhat_Trasua.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CapNhatMon\SuaMon.xaml.cs">
+      <DependentUpon>SuaMon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CapNhatMon\ThemMon.xaml.cs">
+      <DependentUpon>ThemMon.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\DatMon\DatMon.xaml.cs">
       <DependentUpon>DatMon.xaml</DependentUpon>
     </Compile>
@@ -83,11 +98,38 @@
     <Compile Include="Forms\DoanhThu\DoanhThu.xaml.cs">
       <DependentUpon>DoanhThu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\NhanVien\NhanVien.xaml.cs">
+      <DependentUpon>NhanVien.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NhanVien\PhaChe.xaml.cs">
+      <DependentUpon>PhaChe.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NhanVien\PhucVu.xaml.cs">
+      <DependentUpon>PhucVu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NhanVien\ThemNV.xaml.cs">
+      <DependentUpon>ThemNV.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NhanVien\ThongTin.xaml.cs">
+      <DependentUpon>ThongTin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NhanVien\ThuNgan.xaml.cs">
+      <DependentUpon>ThuNgan.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Nut\nutmon.xaml.cs">
+      <DependentUpon>nutmon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Nut\nutnv.xaml.cs">
+      <DependentUpon>nutnv.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\TrangChu\TrangChu.xaml.cs">
       <DependentUpon>TrangChu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Ban.cs" />
     <Compile Include="Models\ChiTietHoaDon.cs" />
+    <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\luunhanvien.cs" />
+    <Compile Include="Models\mon.cs" />
     <Compile Include="Models\TongDoanhThu\DLDoanhThu.cs" />
     <Compile Include="Models\TongDoanhThu\doanhthulowest.cs" />
     <Compile Include="Models\TongDoanhThu\doanhthumax.cs" />
@@ -98,9 +140,25 @@
     <Compile Include="Models\TaiKhoan.cs" />
     <Compile Include="SQL\Connection.cs" />
     <Compile Include="SQL\Modify.cs" />
-    <Page Include="Forms\CapNhatMon\TraSuaCapNhat.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Forms\CapNhatMon\CapNhatMon.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\CapNhatMon\CapNhat_Anvat.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\CapNhatMon\CapNhat_Trasua.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\CapNhatMon\SuaMon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\CapNhatMon\ThemMon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\DatMon\DatMon.xaml">
       <SubType>Designer</SubType>
@@ -117,6 +175,38 @@
     <Page Include="Forms\DoanhThu\DoanhThu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\NhanVien\NhanVien.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\NhanVien\PhaChe.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\NhanVien\PhucVu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\NhanVien\ThemNV.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\NhanVien\ThongTin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\NhanVien\ThuNgan.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Nut\nutmon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Nut\nutnv.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\TrangChu\TrangChu.xaml">
       <SubType>Designer</SubType>
@@ -153,6 +243,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="bin\Debug\QLTraSua.exe.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -162,14 +253,33 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Forms\NhanVien\" />
+    <Folder Include="bin\Release\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Debug\Database\Trasua.mdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="bin\Debug\Database\Trasua_log.ldf">
+      <DependentUpon>Trasua.mdf</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="bin\Debug\Images\default.jpg" />
+    <Resource Include="bin\Debug\Images\trangchu.png" />
+    <Resource Include="bin\Debug\Images\TS001.png" />
+    <Resource Include="bin\Debug\Images\TS002.png" />
+    <Resource Include="bin\Debug\Images\TS003.png" />
+    <Resource Include="bin\Debug\Images\TS004.png" />
+    <Resource Include="bin\Debug\Images\TS005.png" />
+    <Resource Include="bin\Debug\Images\TS006.png" />
+    <Resource Include="bin\Debug\Images\TS007.png" />
+    <Resource Include="bin\Debug\Images\TS008.png" />
+    <Content Include="bin\Debug\QLTraSua.exe" />
+    <Content Include="bin\Debug\QLTraSua.pdb" />
     <Content Include="Database\Trasua.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Database\Trasua_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <DependentUpon>Trasua.mdf</DependentUpon>
     </Content>
   </ItemGroup>

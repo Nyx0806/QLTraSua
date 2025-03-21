@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 F:\C_C#_C++\Visual Studio Code\QLTraSua\QLTraSua\App.xaml
-7-1700617188
-21265894922
-231434618175
+19-1358559294
+6958352604
+39969093843
 14-207034072
-Forms\CapNhatMon\TraSuaCapNhat.xaml;Forms\DatMon\DatMon.xaml;Forms\DatMon\DoAnVat.xaml;Forms\DatMon\TraSua.xaml;Forms\DoanhThu\DoanhThu.xaml;Forms\TrangChu\TrangChu.xaml;MainWindow.xaml;
+Forms\CapNhatMon\CapNhatMon.xaml;Forms\CapNhatMon\CapNhat_Anvat.xaml;Forms\CapNhatMon\CapNhat_Trasua.xaml;Forms\CapNhatMon\SuaMon.xaml;Forms\CapNhatMon\ThemMon.xaml;Forms\DatMon\DatMon.xaml;Forms\DatMon\DoAnVat.xaml;Forms\DatMon\TraSua.xaml;Forms\DoanhThu\DoanhThu.xaml;Forms\NhanVien\NhanVien.xaml;Forms\NhanVien\PhaChe.xaml;Forms\NhanVien\PhucVu.xaml;Forms\NhanVien\ThemNV.xaml;Forms\NhanVien\ThongTin.xaml;Forms\NhanVien\ThuNgan.xaml;Forms\Nut\nutmon.xaml;Forms\Nut\nutnv.xaml;Forms\TrangChu\TrangChu.xaml;MainWindow.xaml;
 
 False
 

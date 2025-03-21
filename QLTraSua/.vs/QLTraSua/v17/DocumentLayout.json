@@ -5,6 +5,26 @@
     {
       "AbsoluteMoniker": "D:0:0:{00A6F4FC-A0EF-4C17-9ABD-77C12C609A0F}|QLTraSua.csproj|f:\\c_c#_c\u002B\u002B\\visual studio code\\qltrasua\\qltrasua\\sql\\modify.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{00A6F4FC-A0EF-4C17-9ABD-77C12C609A0F}|QLTraSua.csproj|solutionrelative:sql\\modify.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{00A6F4FC-A0EF-4C17-9ABD-77C12C609A0F}|QLTraSua.csproj|F:\\C_C#_C\u002B\u002B\\Visual Studio Code\\QLTraSua\\QLTraSua\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{00A6F4FC-A0EF-4C17-9ABD-77C12C609A0F}|QLTraSua.csproj|solutionrelative:app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{00A6F4FC-A0EF-4C17-9ABD-77C12C609A0F}|QLTraSua.csproj|F:\\C_C#_C\u002B\u002B\\Visual Studio Code\\QLTraSua\\QLTraSua\\sql\\connection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{00A6F4FC-A0EF-4C17-9ABD-77C12C609A0F}|QLTraSua.csproj|solutionrelative:sql\\connection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{00A6F4FC-A0EF-4C17-9ABD-77C12C609A0F}|QLTraSua.csproj|F:\\C_C#_C\u002B\u002B\\Visual Studio Code\\QLTraSua\\QLTraSua\\forms\\datmon\\datmon.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
+      "RelativeMoniker": "D:0:0:{00A6F4FC-A0EF-4C17-9ABD-77C12C609A0F}|QLTraSua.csproj|solutionrelative:forms\\datmon\\datmon.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{00A6F4FC-A0EF-4C17-9ABD-77C12C609A0F}|QLTraSua.csproj|F:\\C_C#_C\u002B\u002B\\Visual Studio Code\\QLTraSua\\QLTraSua\\forms\\trangchu\\trangchu.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{00A6F4FC-A0EF-4C17-9ABD-77C12C609A0F}|QLTraSua.csproj|solutionrelative:forms\\trangchu\\trangchu.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{00A6F4FC-A0EF-4C17-9ABD-77C12C609A0F}|QLTraSua.csproj|F:\\C_C#_C\u002B\u002B\\Visual Studio Code\\QLTraSua\\QLTraSua\\forms\\trangchu\\trangchu.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
+      "RelativeMoniker": "D:0:0:{00A6F4FC-A0EF-4C17-9ABD-77C12C609A0F}|QLTraSua.csproj|solutionrelative:forms\\trangchu\\trangchu.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
     }
   ],
   "DocumentGroupContainers": [
@@ -24,7 +44,7 @@
               "RelativeDocumentMoniker": "SQL\\Modify.cs",
               "ToolTip": "F:\\C_C#_C\u002B\u002B\\Visual Studio Code\\QLTraSua\\QLTraSua\\SQL\\Modify.cs",
               "RelativeToolTip": "SQL\\Modify.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAABAAAAAAAAAAAAA3wBAAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-18T19:03:00.648Z",
               "IsPinned": true,
@@ -37,6 +57,70 @@
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "App.config",
+              "DocumentMoniker": "F:\\C_C#_C\u002B\u002B\\Visual Studio Code\\QLTraSua\\QLTraSua\\App.config",
+              "RelativeDocumentMoniker": "App.config",
+              "ToolTip": "F:\\C_C#_C\u002B\u002B\\Visual Studio Code\\QLTraSua\\QLTraSua\\App.config",
+              "RelativeToolTip": "App.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAABtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2025-03-21T13:38:34.678Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Connection.cs",
+              "DocumentMoniker": "F:\\C_C#_C\u002B\u002B\\Visual Studio Code\\QLTraSua\\QLTraSua\\SQL\\Connection.cs",
+              "RelativeDocumentMoniker": "SQL\\Connection.cs",
+              "ToolTip": "F:\\C_C#_C\u002B\u002B\\Visual Studio Code\\QLTraSua\\QLTraSua\\SQL\\Connection.cs",
+              "RelativeToolTip": "SQL\\Connection.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T13:38:29.809Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DatMon.xaml.cs",
+              "DocumentMoniker": "F:\\C_C#_C\u002B\u002B\\Visual Studio Code\\QLTraSua\\QLTraSua\\Forms\\DatMon\\DatMon.xaml.cs",
+              "RelativeDocumentMoniker": "Forms\\DatMon\\DatMon.xaml.cs",
+              "ToolTip": "F:\\C_C#_C\u002B\u002B\\Visual Studio Code\\QLTraSua\\QLTraSua\\Forms\\DatMon\\DatMon.xaml.cs",
+              "RelativeToolTip": "Forms\\DatMon\\DatMon.xaml.cs",
+              "ViewState": "AgIAAA0BAAAAAAAAAAAMwA8BAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T12:55:48.962Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "TrangChu.xaml",
+              "DocumentMoniker": "F:\\C_C#_C\u002B\u002B\\Visual Studio Code\\QLTraSua\\QLTraSua\\Forms\\TrangChu\\TrangChu.xaml",
+              "RelativeDocumentMoniker": "Forms\\TrangChu\\TrangChu.xaml",
+              "ToolTip": "F:\\C_C#_C\u002B\u002B\\Visual Studio Code\\QLTraSua\\QLTraSua\\Forms\\TrangChu\\TrangChu.xaml",
+              "RelativeToolTip": "Forms\\TrangChu\\TrangChu.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-03-21T12:53:58.741Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "TrangChu.xaml.cs",
+              "DocumentMoniker": "F:\\C_C#_C\u002B\u002B\\Visual Studio Code\\QLTraSua\\QLTraSua\\Forms\\TrangChu\\TrangChu.xaml.cs",
+              "RelativeDocumentMoniker": "Forms\\TrangChu\\TrangChu.xaml.cs",
+              "ToolTip": "F:\\C_C#_C\u002B\u002B\\Visual Studio Code\\QLTraSua\\QLTraSua\\Forms\\TrangChu\\TrangChu.xaml.cs",
+              "RelativeToolTip": "Forms\\TrangChu\\TrangChu.xaml.cs",
+              "ViewState": "AgIAAE0AAAAAAAAAAAAmwGQAAABRAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T12:49:10.15Z",
+              "EditorCaption": ""
             }
           ]
         }

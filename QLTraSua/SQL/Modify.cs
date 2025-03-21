@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Imaging;
 using QLTraSua.Models;
 using QLTraSua.Models.TongDoanhThu;
 
@@ -59,7 +61,7 @@ namespace QLTraSua.SQL
                         TinhTrang = SanPham.TinhTrangList.Contains(reader["tinhtrang"].ToString())
                             ? reader["tinhtrang"].ToString()
                             : SanPham.TinhTrangList[0], // Nếu không hợp lệ, chọn giá trị đầu tiên
-
+                        Anh = reader["anh"] == DBNull.Value ? null : ByteArrayToBitmapImage((byte[])reader["anh"]),
                         SoLuong = 1 // Mặc định số lượng = 1 khi lấy từ database
                     };
                     danhSach.Add(sp);
@@ -176,7 +178,7 @@ namespace QLTraSua.SQL
             }
             return maKH;
         }
-        public bool ThemHoaDon(string maHD, string maKH, string soBan, decimal tongTien, decimal giamGia)
+        public bool ThemHoaDon(string maHD, string maKH, string soBan, decimal tongTien)
         {
             using (SqlConnection sqlConnection = Connection.GetSqlConnection())
             {
@@ -185,6 +187,9 @@ namespace QLTraSua.SQL
                 string query = "INSERT INTO HoaDon (maHD, maKH, banSo, tongTien, ngayLap) VALUES (@maHD, @maKH, @soBan, @tongTien, GETDATE())";
                 using (SqlCommand cmd = new SqlCommand(query, sqlConnection))
                 {
+                    MessageBox.Show($"maHD: {maHD}, maKH: {maKH}, banSo: {soBan}, tongTien: {tongTien}",
+                    "Debug", MessageBoxButton.OK, MessageBoxImage.Information);
+
                     cmd.Parameters.AddWithValue("@maHD", maHD);
                     cmd.Parameters.AddWithValue("@maKH", maKH);
                     cmd.Parameters.AddWithValue("@soBan", soBan ?? (object)DBNull.Value);
@@ -233,13 +238,16 @@ namespace QLTraSua.SQL
                             cmd.Parameters.AddWithValue("@MaSP", mon.MaSanPham);
                             cmd.Parameters.AddWithValue("@SL", mon.SoLuong);
                             cmd.Parameters.AddWithValue("@DonGia", mon.ThanhTien);
-
+                            MessageBox.Show($"maHDChiTiet: {maHDChiTiet}, maHD: {maHD}, maSP: {mon.MaSanPham}, " +
+                            $"SL: {mon.SoLuong}, DonGia: {mon.ThanhTien}",
+                            "Debug", MessageBoxButton.OK, MessageBoxImage.Information);
                             cmd.ExecuteNonQuery();
                         }
                         stt++;
                     }
 
                     transaction.Commit();
+                    MessageBox.Show("Thêm chi tiết hóa đơn thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                     return true;
                 }
                 catch (Exception ex)
@@ -307,20 +315,80 @@ namespace QLTraSua.SQL
                     else // 🔹 Nếu khách chưa có, tạo mới
                     {
                         maKH = TaoMaKHNgauNhien(); // 🔹 Tạo mã khách hàng mới
-                        string queryInsert = "INSERT INTO KhachHang (maKH, tenKH, sdt, tichDiem) " +
-                                             "VALUES (@maKH, @tenKH, @sdt, 0)";
-                        using (SqlCommand cmdInsert = new SqlCommand(queryInsert, conn))
-                        {
-                            cmdInsert.Parameters.AddWithValue("@maKH", maKH);
-                            cmdInsert.Parameters.AddWithValue("@tenKH", tenKhach);
-                            cmdInsert.Parameters.AddWithValue("@sdt", sdtKhach);
-                            cmdInsert.ExecuteNonQuery();
-                        }
+                        string queryInsert = "INSERT INTO KhachHang VALUES ('" + maKH + "',  '" + tenKhach + "', '" + sdtKhach + "', 0)";
+                        ThucThi(queryInsert);
                     }
                 }
             }
             return maKH;
         }
+        public void ThucThi(string query)
+        {
+            using (SqlConnection sqlConnection = Connection.GetSqlConnection())
+            {
+                sqlConnection.Open();
 
+                sqlCommand = new SqlCommand(query, sqlConnection);
+                sqlCommand.ExecuteNonQuery(); // thực thi câu truy vấn
+
+                sqlConnection.Close();
+            }
+        }
+        public List<luunhanvien> luunhanviens(string query)
+        {
+            List<luunhanvien> luunhanviens = new List<luunhanvien>();
+            using (SqlConnection sqlConnection = Connection.GetSqlConnection())
+            {
+                sqlConnection.Open();
+                sqlCommand = new SqlCommand(query, sqlConnection);
+                dataReader = sqlCommand.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    luunhanviens.Add(new luunhanvien(dataReader.GetString(0), dataReader.GetString(1), dataReader.GetString(2), dataReader.GetDecimal(3), dataReader.GetString(4), dataReader.GetString(5), dataReader.GetString(6), dataReader.GetDateTime(7), dataReader.GetString(8)));
+                }
+                sqlConnection.Close();
+            }
+            return luunhanviens;
+        }
+        public BitmapImage ByteArrayToBitmapImage(byte[] imageData)
+        {
+            using (MemoryStream ms = new MemoryStream(imageData))
+            {
+                BitmapImage image = new BitmapImage();
+                image.BeginInit();
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.StreamSource = ms;
+                image.EndInit();
+                image.Freeze(); // Tăng hiệu suất và tránh lỗi threading
+                return image;
+            }
+        }
+        public List<mon> mons(string query)
+        {
+            List<mon> mons = new List<mon>();
+            using (SqlConnection sqlConnection = Connection.GetSqlConnection())
+            {
+                sqlConnection.Open();
+                using (SqlCommand sqlCommand = new SqlCommand(query, sqlConnection))
+                using (SqlDataReader dataReader = sqlCommand.ExecuteReader())
+                {
+                    while (dataReader.Read())
+                    {
+                        string maMon = dataReader.GetString(0);
+                        string tenMon = dataReader.GetString(1);
+                        decimal gia = dataReader.GetDecimal(2);
+                        string loai = dataReader.GetString(3);
+
+                        // Đọc byte[] từ cột 4
+                        byte[] imageData = (byte[])dataReader[5];
+                        BitmapImage image = ByteArrayToBitmapImage(imageData);
+                        string ghiChu = dataReader.GetString(4);
+                        mons.Add(new mon(maMon, tenMon, gia, loai, image, ghiChu));
+                    }
+                }
+                sqlConnection.Close();
+            }
+            return mons;
+        }
     }
 }

@@ -75,8 +75,6 @@ namespace QLTraSua.Forms.DatMon
 
                             btnBan.Click += (s, e) => ChonBan(btnBan, soBan);
                             banAnContainer.Children.Add(btnBan);
-
-                            // 🔥 Sửa lỗi `TryAdd()` bằng `ContainsKey()` ✅
                             if (!banHoaDon.ContainsKey(soBan))
                             {
                                 banHoaDon[soBan] = new ObservableCollection<SanPham>();
@@ -116,18 +114,14 @@ namespace QLTraSua.Forms.DatMon
             banDangChon = btnBan;
 
             // 🔹 Xóa danh sách món cũ trước khi load bàn mới
-            DanhSachMon.Clear();
-
-            if (!banHoaDon.ContainsKey(soBan))
-            {
-                banHoaDon[soBan] = new ObservableCollection<SanPham>();
-            }
-
             DanhSachMon = banHoaDon[soBan];
 
             dataGridMon.ItemsSource = DanhSachMon;
             dataGridMon.Items.Refresh();
-
+            if (!banHoaDon.ContainsKey(soBan))
+            {
+                banHoaDon[soBan] = new ObservableCollection<SanPham>();
+            }
             CapNhatTongTien();
 
             gridBanAn.Visibility = Visibility.Collapsed;
@@ -278,20 +272,17 @@ namespace QLTraSua.Forms.DatMon
             tongTien -= giamGia;
             int diemCongThem = (int)(tongTien / 10000);
 
-            bool hoaDonThemThanhCong = modify.ThemHoaDon(maHoaDon, maKH, soBan, tongTien, giamGia);
-            if (!hoaDonThemThanhCong)
+            bool hoaDonThemThanhCong = modify.ThemHoaDon(maHoaDon, maKH, soBan, tongTien);
+            if (hoaDonThemThanhCong)
             {
-                MessageBox.Show("Lỗi khi thêm hóa đơn!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                bool chiTietThemThanhCong = modify.ThemChiTietHoaDon(maHoaDon, DanhSachMon.ToList());
+                if (!chiTietThemThanhCong)
+                {
+                    MessageBox.Show("Thêm thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                
             }
-
-            bool chiTietThemThanhCong = modify.ThemChiTietHoaDon(maHoaDon, DanhSachMon.ToList());
-            if (!chiTietThemThanhCong)
-            {
-                MessageBox.Show("Lỗi khi thêm chi tiết hóa đơn!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
             bool capNhatDiemThanhCong = modify.CapNhatDiemTichLuy(sdtKhach, diemMuonDung, diemCongThem);
             if (!capNhatDiemThanhCong)
             {
@@ -304,10 +295,6 @@ namespace QLTraSua.Forms.DatMon
 
             ResetBanSauKhiIn(soBan);
         }
-
-
-
-
 
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -337,7 +324,6 @@ namespace QLTraSua.Forms.DatMon
             gridMon.Visibility = Visibility.Visible;
             gridMon.UpdateLayout(); // Làm mới giao diện
         }
-
         private void Menu_Trasua_Click(object sender, RoutedEventArgs e)
         {
             MoForm(new TraSua(this)); // Thêm vào gridMon thay vì gridHoaDon
@@ -377,10 +363,6 @@ namespace QLTraSua.Forms.DatMon
                 dataGridMon.Items.Refresh();
             }
         }
-
-
-
-
     }
 }
 
